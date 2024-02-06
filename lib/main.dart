@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
+// import 'package:prac11/widgets/num_textfield.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,9 +22,8 @@ class _MyAppState extends State<MyApp> {
   TextEditingController conditionToController = new TextEditingController();
   TextEditingController engineFromController = new TextEditingController();
   TextEditingController engineToController = new TextEditingController();
-  TextEditingController fuelController = new TextEditingController();
-  TextEditingController locationController = new TextEditingController();
   TextEditingController transmissionController = new TextEditingController();
+  TextEditingController fuelController = new TextEditingController();
 
   final List<String> makesList = [
     'AUDI',
@@ -237,24 +237,16 @@ class _MyAppState extends State<MyApp> {
     '4000',
   ];
 
-  final List<String> fuelList = [
-    'Petrol',
-    'Hybrid',
-    'Electric',
-    'Diesel',
-  ];
-
-  final List<String> locationList = [
-    'New Zealand',
-    'Japan',
-    'In-Transit',
-  ];
-
   final List<String> transmissionList = [
     'Manual',
     'Auto',
-    '5spd',
-    '6spd',
+  ];
+
+  final List<String> fuelList = [
+    'Petrol',
+    'Diesel',
+    'Hybrid',
+    'Electric',
   ];
 
   // Hide dropdown
@@ -266,13 +258,15 @@ class _MyAppState extends State<MyApp> {
   bool hideConditionToList = false;
   bool hideEngineFromList = false;
   bool hideEngineToList = false;
-  bool hideFuelList = false;
-  bool hideLocationList = false;
   bool hideTransmissionList = false;
+  bool hideFuelList = false;
   bool hideConditionList = false;
 
   // Checkbox
   bool check1 = false;
+
+  // Show / Hide Button
+  bool isVisible = true;
 
   // AppBar
   @override
@@ -326,37 +320,11 @@ class _MyAppState extends State<MyApp> {
           padding: EdgeInsets.all(10),
           color: Colors.white,
           // width: double.infinity,
-          height: 700,
+          height: 900,
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // SizedBox(
-              //   height: 100,
-              // ),
-              // Row(
-              //   children: [
-
-              // Year Row Dropdown
-              // Row(
-              //   children: [
-              //     Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Text("Year: ",
-              //             style: TextStyle(fontSize: 17, color: Colors.white)),
-              //         // SizedBox(
-              //         //   height: 2,
-              //         // ),
-              //         inputField("Make", makeController),
-              //         hideMakeList
-              //             ? selectionField("Make", makeController)
-              //             : SizedBox()
-              //       ],
-              //     ),
-              //   ],
-              // ),
-
               Row(
                 children: [
                   Column(
@@ -378,11 +346,9 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ],
               ),
-
               SizedBox(
                 height: 5,
               ),
-
               Row(
                 children: [
                   Column(
@@ -404,11 +370,9 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ],
               ),
-
               SizedBox(
                 height: 5,
               ),
-
               Row(
                 children: [
                   Column(
@@ -460,11 +424,9 @@ class _MyAppState extends State<MyApp> {
                   )
                 ],
               ),
-
               SizedBox(
                 height: 5,
               ),
-
               Row(
                 children: [
                   Column(
@@ -519,11 +481,9 @@ class _MyAppState extends State<MyApp> {
                   )
                 ],
               ),
-
               SizedBox(
                 height: 5,
               ),
-
               Row(
                 children: [
                   Column(
@@ -575,7 +535,6 @@ class _MyAppState extends State<MyApp> {
                   )
                 ],
               ),
-
               SizedBox(
                 height: 5,
               ),
@@ -584,19 +543,28 @@ class _MyAppState extends State<MyApp> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("ODOMETER ",
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
+                      Text(
+                        "ODOMETER ",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(
                         height: 3,
                       ),
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
+                      SizedBox(
+                        width: 170,
+                        child: TextFormField(
+                          initialValue: '1,000',
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 7.0, horizontal: 7.0),
+                            isDense: true,
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -619,24 +587,30 @@ class _MyAppState extends State<MyApp> {
                     width: 17,
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 24), // Adjust the value as needed
-                        child: inputField5("EngineTo", engineToController),
+                      SizedBox(
+                        height: 23,
                       ),
-                      hideEngineToList
-                          ? selectionField5("EngineTo", engineToController)
-                          : SizedBox(),
+                      SizedBox(
+                        width: 170,
+                        child: TextFormField(
+                          initialValue: ',000',
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 7.0, horizontal: 7.0),
+                            isDense: true,
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
-
               SizedBox(
                 height: 5,
               ),
-
               Row(
                 children: [
                   Column(
@@ -652,10 +626,9 @@ class _MyAppState extends State<MyApp> {
                           SizedBox(
                             height: 3,
                           ),
-                          inputField4("EngineFrom", engineFromController),
-                          hideEngineFromList
-                              ? selectionField4(
-                                  "EngineFrom", engineFromController)
+                          inputField1("Trans", transmissionController),
+                          hideTransmissionList
+                              ? selectionField1("Trans", transmissionController)
                               : SizedBox()
                         ],
                       ),
@@ -673,10 +646,9 @@ class _MyAppState extends State<MyApp> {
                           SizedBox(
                             height: 3,
                           ),
-                          inputField4("EngineFrom", engineFromController),
-                          hideEngineFromList
-                              ? selectionField4(
-                                  "EngineFrom", engineFromController)
+                          inputField4("Fuel", fuelController),
+                          hideFuelList
+                              ? selectionField4("Fuel", fuelController)
                               : SizedBox()
                         ],
                       ),
@@ -737,132 +709,228 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 9,
+              ),
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ElevatedButton.icon(
+                          icon: Icon(Icons.keyboard_arrow_down),
+                          label: Text("Advance Search"),
+                          onPressed: () {
+                            setState(() {
+                              isVisible = !isVisible;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(0),
+                            fixedSize: Size(170, 44),
+                            textStyle: TextStyle(fontSize: 16.3),
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              side: BorderSide(color: Colors.blue),
+                            ),
+                          ))
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 9,
+              ),
+              Visibility(
+                visible: isVisible,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "MAKE OR MODEL ",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            const SizedBox(
+                              width: 370,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 7.0, horizontal: 7.0),
+                                  isDense: true,
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Make or Model',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "LOT # ",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            const SizedBox(
+                              width: 150,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 7.0, horizontal: 7.0),
+                                  isDense: true,
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Lot #',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "MODEL PREFIX ",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            const SizedBox(
+                              width: 210,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 7.0, horizontal: 7.0),
+                                  isDense: true,
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Model Prefix',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "START PRICE ",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            SizedBox(
+                              width: 165,
+                              child: TextFormField(
+                                initialValue: ',000',
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 7.0, horizontal: 7.0),
+                                  isDense: true,
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 20), // Adjust the value as needed
+                              child: Text(
+                                "-",
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 17,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 23,
+                            ),
+                            SizedBox(
+                              width: 165,
+                              child: TextFormField(
+                                initialValue: ',000',
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 7.0, horizontal: 7.0),
+                                  isDense: true,
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
 
-              // Row(
-              //   children: [
-              //     Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Text("Fuel Type ",
-              //             style: TextStyle(
-              //                 fontSize: 17,
-              //                 color: Colors.black,
-              //                 fontWeight: FontWeight.bold)),
-              //         // SizedBox(
-              //         //   height: 2,
-              //         // ),
-              //         inputField("Fuel", fuelController),
-              //         hideFuelList
-              //             ? selectionField("Fuel", fuelController)
-              //             : SizedBox()
-              //       ],
-              //     ),
-              //   ],
-              // ),
-
-              // Row(
-              //   children: [
-              //     Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Text("Location ",
-              //             style: TextStyle(
-              //                 fontSize: 17,
-              //                 color: Colors.black,
-              //                 fontWeight: FontWeight.bold)),
-              //         // SizedBox(
-              //         //   height: 2,
-              //         // ),
-              //         inputField("Location", locationController),
-              //         hideLocationList
-              //             ? selectionField("Location", locationController)
-              //             : SizedBox()
-              //       ],
-              //     ),
-              //   ],
-              // ),
-
-              // SizedBox(
-              //   width: 10,
-              // ),
-
-              // Container(
-              //   padding: EdgeInsets.only(top: 3),
-              //   child: Row(
-              //     children: [
-              //       Padding(
-              //         padding: const EdgeInsets.only(top: 22),
-              //         child: Row(children: [
-              //           Checkbox(
-              //             fillColor: MaterialStateColor.resolveWith(
-              //               (Set<MaterialState> states) {
-              //                 if (states.contains(MaterialState.disabled)) {
-              //                   return Colors.black;
-              //                 }
-              //                 return Colors.black;
-              //               },
-              //             ),
-              //             checkColor: Colors.blue,
-              //             value: check1,
-              //             onChanged: (value) {
-              //               setState(() {
-              //                 check1 = value!;
-              //               });
-              //             },
-              //             side: MaterialStateBorderSide.resolveWith(
-              //               (states) => const BorderSide(
-              //                   width: 1.0, color: Colors.black),
-              //             ),
-              //           ),
-              //           Text("Favourite",
-              //               style:
-              //                   TextStyle(color: Colors.black, fontSize: 17)),
-              //         ]),
-              //       ),
-              //       SizedBox(
-              //         width: 18,
-              //       ),
-              //       Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         children: [
-              //           Text("Trans ",
-              //               style:
-              //                   TextStyle(fontSize: 17, color: Colors.black)),
-              //           // SizedBox(
-              //           //   height: 2,
-              //           // ),
-              //           inputField1("Trans", transmissionController),
-              //           hideTransmissionList
-              //               ? selectionField1("Trans", transmissionController)
-              //               : SizedBox()
-              //         ],
-              //       ),
-              //     ],
+              // Visibility(
+              //   visible: isVisible,
+              //   child: Image.asset(
+              //     "assets/logo.png",
+              //     height: 60,
+              //     width: 250,
+              //     fit: BoxFit.fill,
               //   ),
-              // ),
-
-              // Row(
-              //   children: [
-              //     Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Text("Mileage (kms): ",
-              //             style: TextStyle(fontSize: 17, color: Colors.white)),
-              //         // SizedBox(
-              //         //   height: 2,
-              //         // ),
-              //         NumberInputWithIncrementDecrement(
-              //           controller: TextEditingController(),
-              //           min: -100000,
-              //           max: 100000,
-              //         ),
-              //         inputField("Condition", conditionController),
-              //         hideConditionList
-              //             ? selectionField("Condition", conditionController)
-              //             : SizedBox()
-              //       ],
-              //     ),
-              //   ],
               // ),
             ],
           ),
@@ -896,9 +964,7 @@ class _MyAppState extends State<MyApp> {
                   ? 'All Models'
                   : type == "Fuel"
                       ? 'Select Fuel Type'
-                      : type == "Location"
-                          ? 'Select Location'
-                          : '',
+                      : '',
           border: InputBorder.none,
           suffixIcon: GestureDetector(
             onTap: () {
@@ -913,9 +979,6 @@ class _MyAppState extends State<MyApp> {
                   case "Fuel":
                     hideFuelList = !hideFuelList;
                     break;
-                  case "Location":
-                    hideLocationList = !hideLocationList;
-                    break;
                 }
                 // hideMakeList = !hideMakeList;
               });
@@ -929,7 +992,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget inputField1(String type, TextEditingController controller) {
     return Container(
-      width: 240,
+      width: 170,
       height: 40,
       decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
@@ -941,7 +1004,7 @@ class _MyAppState extends State<MyApp> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10),
           // hintText: type == "Make" ? 'Select Makes' : type == "Model" ? 'Select Model':,
-          hintText: 'Select Transmission',
+          hintText: 'All',
           border: InputBorder.none,
           suffixIcon: GestureDetector(
             onTap: () {
@@ -1050,12 +1113,23 @@ class _MyAppState extends State<MyApp> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10),
           // hintText: type == "Make" ? 'Select Makes' : type == "Model" ? 'Select Model':,
-          hintText: 'Lowest',
+          hintText: type == 'EngineFrom'
+              ? 'Lowest'
+              : type == "Fuel"
+                  ? "All"
+                  : '',
           border: InputBorder.none,
           suffixIcon: GestureDetector(
             onTap: () {
               setState(() {
-                hideEngineFromList = !hideEngineFromList;
+                switch (type) {
+                  case "EngineFrom":
+                    hideEngineFromList = !hideEngineFromList;
+                    break;
+                  case "Fuel":
+                    hideFuelList = !hideFuelList;
+                    break;
+                }
               });
             },
             child: Icon(Icons.keyboard_arrow_down),
@@ -1181,9 +1255,7 @@ class _MyAppState extends State<MyApp> {
                   ? modelList.length
                   : type == "Fuel"
                       ? fuelList.length
-                      : type == "Location"
-                          ? locationList.length
-                          : 0,
+                      : 0,
           itemBuilder: ((context, index) {
             return GestureDetector(
               onTap: () {
@@ -1198,9 +1270,6 @@ class _MyAppState extends State<MyApp> {
                     case "Fuel":
                       controller.text = fuelList[index];
                       break;
-                    case "Location":
-                      controller.text = locationList[index];
-                      break;
                   }
 
                   // controller.text = (makesList[index]).toString();
@@ -1213,9 +1282,7 @@ class _MyAppState extends State<MyApp> {
                         ? modelList[index]
                         : type == "Fuel"
                             ? fuelList[index]
-                            : type == "Location"
-                                ? locationList[index]
-                                : ''),
+                            : ''),
               ),
             );
           }),
@@ -1224,8 +1291,8 @@ class _MyAppState extends State<MyApp> {
 
   Widget selectionField1(String type, TextEditingController controller) {
     return Container(
-        height: 160,
-        width: 240,
+        height: 105,
+        width: 170,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(9),
             color: Colors.white,
@@ -1369,17 +1436,33 @@ class _MyAppState extends State<MyApp> {
               )
             ]),
         child: ListView.builder(
-          itemCount: type == "EngineFrom" ? engineFromList.length : 0,
+          itemCount: type == "EngineFrom"
+              ? engineFromList.length
+              : type == "Fuel"
+                  ? fuelList.length
+                  : 0,
           itemBuilder: ((context, index) {
             return GestureDetector(
               onTap: () {
                 setState(() {
-                  controller.text = engineFromList[index];
+                  switch (type) {
+                    case "EngineFrom":
+                      controller.text = engineFromList[index];
+                      break;
+                    case "Fuel":
+                      controller.text = fuelList[index];
+                      break;
+                  }
+
                   // controller.text = (makesList[index]).toString();
                 });
               },
               child: ListTile(
-                title: Text(engineFromList[index]),
+                title: Text(type == "EngineFrom"
+                    ? engineFromList[index]
+                    : type == "Fuel"
+                        ? fuelList[index]
+                        : ''),
               ),
             );
           }),
@@ -1451,3 +1534,107 @@ class _MyAppState extends State<MyApp> {
   //       ));
   // }
 }
+
+// body in Column
+// Row(
+//   children: [
+//     Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text("Fuel Type ",
+//             style: TextStyle(
+//                 fontSize: 17,
+//                 color: Colors.black,
+//                 fontWeight: FontWeight.bold)),
+//         // SizedBox(
+//         //   height: 2,
+//         // ),
+//         inputField("Fuel", fuelController),
+//         hideFuelList
+//             ? selectionField("Fuel", fuelController)
+//             : SizedBox()
+//       ],
+//     ),
+//   ],
+// ),
+
+// Row(
+//   children: [
+//     Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text("Location ",
+//             style: TextStyle(
+//                 fontSize: 17,
+//                 color: Colors.black,
+//                 fontWeight: FontWeight.bold)),
+//         // SizedBox(
+//         //   height: 2,
+//         // ),
+//         inputField("Location", locationController),
+//         hideLocationList
+//             ? selectionField("Location", locationController)
+//             : SizedBox()
+//       ],
+//     ),
+//   ],
+// ),
+
+// SizedBox(
+//   width: 10,
+// ),
+
+// Container(
+//   padding: EdgeInsets.only(top: 3),
+//   child: Row(
+//     children: [
+//       Padding(
+//         padding: const EdgeInsets.only(top: 22),
+//         child: Row(children: [
+//           Checkbox(
+//             fillColor: MaterialStateColor.resolveWith(
+//               (Set<MaterialState> states) {
+//                 if (states.contains(MaterialState.disabled)) {
+//                   return Colors.black;
+//                 }
+//                 return Colors.black;
+//               },
+//             ),
+//             checkColor: Colors.blue,
+//             value: check1,
+//             onChanged: (value) {
+//               setState(() {
+//                 check1 = value!;
+//               });
+//             },
+//             side: MaterialStateBorderSide.resolveWith(
+//               (states) => const BorderSide(
+//                   width: 1.0, color: Colors.black),
+//             ),
+//           ),
+//           Text("Favourite",
+//               style:
+//                   TextStyle(color: Colors.black, fontSize: 17)),
+//         ]),
+//       ),
+//       SizedBox(
+//         width: 18,
+//       ),
+//       Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text("Trans ",
+//               style:
+//                   TextStyle(fontSize: 17, color: Colors.black)),
+//           // SizedBox(
+//           //   height: 2,
+//           // ),
+//           inputField1("Trans", transmissionController),
+//           hideTransmissionList
+//               ? selectionField1("Trans", transmissionController)
+//               : SizedBox()
+//         ],
+//       ),
+//     ],
+//   ),
+// ),
