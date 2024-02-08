@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 // import 'package:flutter/services.dart';
 // import 'package:prac11/widgets/num_textfield.dart';
 
@@ -24,6 +25,9 @@ class _MyAppState extends State<MyApp> {
   TextEditingController engineToController = new TextEditingController();
   TextEditingController transmissionController = new TextEditingController();
   TextEditingController fuelController = new TextEditingController();
+  TextEditingController colorController = new TextEditingController();
+  TextEditingController auctionTypeController = new TextEditingController();
+  TextEditingController allAuctionsController = new TextEditingController();
 
   final List<String> makesList = [
     'AUDI',
@@ -249,6 +253,58 @@ class _MyAppState extends State<MyApp> {
     'Electric',
   ];
 
+  final List<String> colorList = [
+    'All',
+    'Silver',
+    'White',
+    'Pearl',
+    'Black',
+    'Blue',
+    'Red',
+    'Gray',
+    'Green',
+    'Beige',
+    'Gold',
+    'Yellow',
+    'Purple',
+    'Rose',
+    'Orange',
+    'Brown',
+    'Wine',
+    'Two Tone',
+    'Others',
+  ];
+
+  final List<String> auctionTypeList = [
+    'Auction Type',
+    'Auction Only',
+    'Tender Auction Only',
+  ];
+
+  final List<String> allAuctionsList = [
+    'CAA Gifu - 926 Units',
+    'CAA LUM Fukuoka(Tender) - 93 Units',
+    'CAA NAA Fukuoka - 469 Units',
+    'CAA NPS Fukuoka (Tender) - 93 Units',
+    'CAA NPS Osaka (Tender) - 180 Units',
+    'CAA Orix Fukuoka (Tender) - 237 Units',
+    'CAA Orix Kobe (Tender) - 381 Units',
+    'CAA SMAP Nagaya(Tender) - 78 Units',
+    'CAA Tokyo - 2643 Units',
+    'JU Mie - 1189 Units',
+    'Ju Nagano(aa) - 295 Units',
+    'JU Shizuoka(aa) - 1038 Units',
+    'JU Yamaguchi(aa) - 235 Units',
+    'JUSaitama - 1782 Units',
+    'TAA Hiroshima - 1517 Units',
+    'TAA Kinki - 2674 Units',
+    'TAA Kyushu - 2310 Units',
+    'TAA Minami Kyushu - 551 Units',
+    'TAA Shikoku - 1233 Units',
+    'USS RNagoya - 1964 Units',
+    'USS Yokohama - 4690 Units',
+  ];
+
   // Hide dropdown
   bool hideMakeList = false;
   bool hideModelList = false;
@@ -261,12 +317,21 @@ class _MyAppState extends State<MyApp> {
   bool hideTransmissionList = false;
   bool hideFuelList = false;
   bool hideConditionList = false;
+  bool hideColorList = false;
+  bool hideAuctionTypeList = false;
+  bool hideAllAuctionsList = false;
 
   // Checkbox
   bool check1 = false;
 
   // Show / Hide Button
-  bool isVisible = true;
+  bool isVisible = false;
+
+  // Checkbox
+  List<String> items = ['Mon', 'Tue', 'Wed'];
+  List<String> items_1 = ['Thu', 'Fri', 'Sat'];
+  List<bool> checked = List<bool>.generate(3, (index) => false);
+  List<bool> checked_1 = List<bool>.generate(3, (index) => false);
 
   // AppBar
   @override
@@ -278,7 +343,7 @@ class _MyAppState extends State<MyApp> {
           toolbarHeight: 70,
           flexibleSpace: SafeArea(
             child: Container(
-              // color: Colors.red,
+              color: Colors.white,
               padding: EdgeInsets.only(top: 7, left: 52),
               child: Column(
                 children: [
@@ -320,7 +385,7 @@ class _MyAppState extends State<MyApp> {
           padding: EdgeInsets.all(10),
           color: Colors.white,
           // width: double.infinity,
-          height: 900,
+          height: 1500,
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -558,9 +623,10 @@ class _MyAppState extends State<MyApp> {
                         width: 170,
                         child: TextFormField(
                           initialValue: '1,000',
+                          textAlign: TextAlign.end,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: 7.0, horizontal: 7.0),
+                                vertical: 8.5, horizontal: 7.0),
                             isDense: true,
                             border: OutlineInputBorder(),
                           ),
@@ -596,9 +662,10 @@ class _MyAppState extends State<MyApp> {
                         width: 170,
                         child: TextFormField(
                           initialValue: ',000',
+                          textAlign: TextAlign.end,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: 7.0, horizontal: 7.0),
+                                vertical: 8.5, horizontal: 7.0),
                             isDense: true,
                             border: OutlineInputBorder(),
                           ),
@@ -718,7 +785,9 @@ class _MyAppState extends State<MyApp> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ElevatedButton.icon(
-                          icon: Icon(Icons.keyboard_arrow_down),
+                          icon: Icon(isVisible
+                              ? Icons.keyboard_arrow_up
+                              : Icons.keyboard_arrow_down),
                           label: Text("Advance Search"),
                           onPressed: () {
                             setState(() {
@@ -764,11 +833,11 @@ class _MyAppState extends State<MyApp> {
                               height: 3,
                             ),
                             const SizedBox(
-                              width: 370,
+                              width: 380,
                               child: TextField(
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: 7.0, horizontal: 7.0),
+                                      vertical: 8.5, horizontal: 7.0),
                                   isDense: true,
                                   border: OutlineInputBorder(),
                                   hintText: 'Make or Model',
@@ -799,11 +868,11 @@ class _MyAppState extends State<MyApp> {
                               height: 3,
                             ),
                             const SizedBox(
-                              width: 150,
+                              width: 170,
                               child: TextField(
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: 7.0, horizontal: 7.0),
+                                      vertical: 8.5, horizontal: 7.0),
                                   isDense: true,
                                   border: OutlineInputBorder(),
                                   hintText: 'Lot #',
@@ -813,7 +882,7 @@ class _MyAppState extends State<MyApp> {
                           ],
                         ),
                         SizedBox(
-                          width: 10,
+                          width: 40,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -830,11 +899,11 @@ class _MyAppState extends State<MyApp> {
                               height: 3,
                             ),
                             const SizedBox(
-                              width: 210,
+                              width: 170,
                               child: TextField(
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: 7.0, horizontal: 7.0),
+                                      vertical: 8.5, horizontal: 7.0),
                                   isDense: true,
                                   border: OutlineInputBorder(),
                                   hintText: 'Model Prefix',
@@ -865,12 +934,13 @@ class _MyAppState extends State<MyApp> {
                               height: 3,
                             ),
                             SizedBox(
-                              width: 165,
+                              width: 170,
                               child: TextFormField(
                                 initialValue: ',000',
+                                textAlign: TextAlign.end,
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: 7.0, horizontal: 7.0),
+                                      vertical: 8.5, horizontal: 7.0),
                                   isDense: true,
                                   border: OutlineInputBorder(),
                                 ),
@@ -904,17 +974,292 @@ class _MyAppState extends State<MyApp> {
                               height: 23,
                             ),
                             SizedBox(
-                              width: 165,
+                              width: 170,
                               child: TextFormField(
                                 initialValue: ',000',
+                                textAlign: TextAlign.end,
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: 7.0, horizontal: 7.0),
+                                      vertical: 8.5, horizontal: 7.0),
                                   isDense: true,
                                   border: OutlineInputBorder(),
                                 ),
                               ),
                             ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("COLOR ",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            inputField4("Color", colorController),
+                            hideColorList
+                                ? selectionField4("Color", colorController)
+                                : SizedBox()
+                          ],
+                        ),
+                        SizedBox(
+                          width: 40,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("AUCTION TYPE ",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            inputField5("Auction_Type", auctionTypeController),
+                            hideAuctionTypeList
+                                ? selectionField5(
+                                    "Auction_Type", auctionTypeController)
+                                : SizedBox(),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("ALL AUCTIONS ",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            inputField("All_Auctions", allAuctionsController),
+                            hideAllAuctionsList
+                                ? selectionField(
+                                    "All_Auctions", allAuctionsController)
+                                : SizedBox()
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 5,
+                            ),
+                            const SizedBox(
+                              width: 380,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 40, horizontal: 7.0),
+                                  isDense: true,
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "AUCTION DAY ",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                for (int index = 0;
+                                    index < items.length;
+                                    index++)
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        fillColor:
+                                            MaterialStateColor.resolveWith(
+                                          (Set<MaterialState> states) {
+                                            if (states.contains(
+                                                MaterialState.disabled)) {
+                                              return Colors.white;
+                                            }
+                                            return Colors.white;
+                                          },
+                                        ),
+                                        checkColor: Colors.blue,
+                                        value: checked[index],
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            checked[index] = value ?? false;
+                                          });
+                                        },
+                                        side:
+                                            MaterialStateBorderSide.resolveWith(
+                                          (states) => const BorderSide(
+                                              width: 1.0, color: Colors.grey),
+                                        ),
+                                      ),
+                                      Text(items[index]),
+                                    ],
+                                  ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                for (int index = 0;
+                                    index < items_1.length;
+                                    index++)
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                        fillColor:
+                                            MaterialStateColor.resolveWith(
+                                          (Set<MaterialState> states) {
+                                            if (states.contains(
+                                                MaterialState.disabled)) {
+                                              return Colors.white;
+                                            }
+                                            return Colors.white;
+                                          },
+                                        ),
+                                        checkColor: Colors.blue,
+                                        value: checked_1[index],
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            checked_1[index] = value ?? false;
+                                          });
+                                        },
+                                        side:
+                                            MaterialStateBorderSide.resolveWith(
+                                          (states) => const BorderSide(
+                                              width: 1.0, color: Colors.grey),
+                                        ),
+                                      ),
+                                      Text(items_1[index]),
+                                    ],
+                                  ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 28,
+                        ),
+                        ElevatedButton(
+                            child: Text("Click Here for Multiple Selection"),
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              // padding: EdgeInsets.all(10),
+                              fixedSize: Size(380, 57),
+                              textStyle: TextStyle(fontSize: 16.7),
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                side: BorderSide(color: Colors.blue),
+                              ),
+                            ))
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "CUSTOMER FOR PRICING",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            const SizedBox(
+                              width: 175,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 8.5, horizontal: 7.0),
+                                  isDense: true,
+                                  border: OutlineInputBorder(),
+                                  hintText: '',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 23,
+                            ),
+                            ElevatedButton(
+                                child: Text("Click here to search"),
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  // padding: EdgeInsets.all(10),
+                                  fixedSize: Size(197, 42),
+                                  textStyle: TextStyle(fontSize: 15.3),
+                                  backgroundColor: Colors.white,
+                                  foregroundColor: Colors.blue,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    side: BorderSide(color: Colors.blue),
+                                  ),
+                                ))
                           ],
                         ),
                       ],
@@ -964,7 +1309,9 @@ class _MyAppState extends State<MyApp> {
                   ? 'All Models'
                   : type == "Fuel"
                       ? 'Select Fuel Type'
-                      : '',
+                      : type == 'All_Auctions'
+                          ? 'All Auctions'
+                          : '',
           border: InputBorder.none,
           suffixIcon: GestureDetector(
             onTap: () {
@@ -978,6 +1325,9 @@ class _MyAppState extends State<MyApp> {
                     break;
                   case "Fuel":
                     hideFuelList = !hideFuelList;
+                    break;
+                  case "All_Auctions":
+                    hideAllAuctionsList = !hideAllAuctionsList;
                     break;
                 }
                 // hideMakeList = !hideMakeList;
@@ -1117,7 +1467,9 @@ class _MyAppState extends State<MyApp> {
               ? 'Lowest'
               : type == "Fuel"
                   ? "All"
-                  : '',
+                  : type == "Color"
+                      ? "All"
+                      : '',
           border: InputBorder.none,
           suffixIcon: GestureDetector(
             onTap: () {
@@ -1128,6 +1480,9 @@ class _MyAppState extends State<MyApp> {
                     break;
                   case "Fuel":
                     hideFuelList = !hideFuelList;
+                    break;
+                  case "Color":
+                    hideColorList = !hideColorList;
                     break;
                 }
               });
@@ -1153,12 +1508,23 @@ class _MyAppState extends State<MyApp> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10),
           // hintText: type == "Make" ? 'Select Makes' : type == "Model" ? 'Select Model':,
-          hintText: 'Highest',
+          hintText: type == 'EngineTo'
+              ? 'Highest'
+              : type == "Auction_Type"
+                  ? 'Auction Type'
+                  : '',
           border: InputBorder.none,
           suffixIcon: GestureDetector(
             onTap: () {
               setState(() {
-                hideEngineToList = !hideEngineToList;
+                switch (type) {
+                  case "EngineTo":
+                    hideEngineToList = !hideEngineToList;
+                    break;
+                  case "Auction_Type":
+                    hideAuctionTypeList = !hideAuctionTypeList;
+                    break;
+                }
               });
             },
             child: Icon(Icons.keyboard_arrow_down),
@@ -1255,7 +1621,9 @@ class _MyAppState extends State<MyApp> {
                   ? modelList.length
                   : type == "Fuel"
                       ? fuelList.length
-                      : 0,
+                      : type == "All_Auctions"
+                          ? allAuctionsList.length
+                          : 0,
           itemBuilder: ((context, index) {
             return GestureDetector(
               onTap: () {
@@ -1270,6 +1638,9 @@ class _MyAppState extends State<MyApp> {
                     case "Fuel":
                       controller.text = fuelList[index];
                       break;
+                    case "All_Auctions":
+                      controller.text = allAuctionsList[index];
+                      break;
                   }
 
                   // controller.text = (makesList[index]).toString();
@@ -1282,7 +1653,9 @@ class _MyAppState extends State<MyApp> {
                         ? modelList[index]
                         : type == "Fuel"
                             ? fuelList[index]
-                            : ''),
+                            : type == "All_Auctions"
+                                ? allAuctionsList[index]
+                                : ''),
               ),
             );
           }),
@@ -1440,7 +1813,9 @@ class _MyAppState extends State<MyApp> {
               ? engineFromList.length
               : type == "Fuel"
                   ? fuelList.length
-                  : 0,
+                  : type == "Color"
+                      ? colorList.length
+                      : 0,
           itemBuilder: ((context, index) {
             return GestureDetector(
               onTap: () {
@@ -1452,6 +1827,9 @@ class _MyAppState extends State<MyApp> {
                     case "Fuel":
                       controller.text = fuelList[index];
                       break;
+                    case "Color":
+                      controller.text = colorList[index];
+                      break;
                   }
 
                   // controller.text = (makesList[index]).toString();
@@ -1462,7 +1840,9 @@ class _MyAppState extends State<MyApp> {
                     ? engineFromList[index]
                     : type == "Fuel"
                         ? fuelList[index]
-                        : ''),
+                        : type == "Color"
+                            ? colorList[index]
+                            : ''),
               ),
             );
           }),
@@ -1485,17 +1865,33 @@ class _MyAppState extends State<MyApp> {
               )
             ]),
         child: ListView.builder(
-          itemCount: type == "EngineTo" ? engineToList.length : 0,
+          itemCount: type == "EngineTo"
+              ? engineToList.length
+              : type == "Auction_Type"
+                  ? auctionTypeList.length
+                  : 0,
           itemBuilder: ((context, index) {
             return GestureDetector(
               onTap: () {
                 setState(() {
-                  controller.text = engineToList[index];
+                  switch (type) {
+                    case "EngineTo":
+                      controller.text = engineToList[index];
+                      break;
+                    case "Auction_Type":
+                      controller.text = auctionTypeList[index];
+                      break;
+                  }
+
                   // controller.text = (makesList[index]).toString();
                 });
               },
               child: ListTile(
-                title: Text(engineToList[index]),
+                title: Text(type == "EngineTo"
+                    ? engineToList[index]
+                    : type == "Auction_Type"
+                        ? auctionTypeList[index]
+                        : ''),
               ),
             );
           }),
